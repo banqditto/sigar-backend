@@ -14,7 +14,7 @@ RUN a2enmod rewrite
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
-WORKDIR /var/www/html
+#WORKDIR /var/www/html
 
 # Copy semua file Laravel
 COPY . .
