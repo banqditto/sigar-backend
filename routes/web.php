@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('Routing Laravel SIGAR berhasil!'');
+    return view('Routing Laravel SIGAR berhasil!');
 });
 
 Route::get('/login', function () {
