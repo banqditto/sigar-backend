@@ -29,6 +29,9 @@ RUN chown -R www-data:www-data /var/www/html \
 # Ubah DocumentRoot Apache ke /var/www/html/public
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
+# Pastikan Apache tahu bahwa index.php adalah halaman utama
+RUN echo "DirectoryIndex index.php" >> /etc/apache2/apache2.conf
+
 
 EXPOSE 80
 
