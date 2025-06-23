@@ -1,4 +1,4 @@
-F# Gunakan PHP versi 8.2 dengan Apache
+
 FROM php:8.2-apache
 
 # Install ekstensi PHP yang dibutuhkan Laravel 12
