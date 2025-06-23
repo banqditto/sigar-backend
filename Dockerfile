@@ -3,31 +3,31 @@ FROM php:8.2-apache
 
 # Install ekstensi PHP yang dibutuhkan Laravel 12
 RUN apt-get update && apt-get install -y \
-    zip unzip git curl libzip-dev libonig-dev libxml2-dev \
-    && docker-php-ext-install pdo pdo_mysql mbstring tokenizer xml ctype bcmath zip
+    zip unzip git curl libzip-dev libxml2-dev \
+    && docker-php-ext-install pdo pdo_mysql mbstring xml bcmath zip
 
-# Aktifkan mod_rewrite untuk routing Laravel
+# Aktifkan mod_rewrite Apache
 RUN a2enmod rewrite
 
-# Copy Composer dari image resmi
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Salin semua file ke container
+# Copy semua file Laravel
 COPY . .
 
-# Jalankan Composer install
+# Install dependency Laravel
 RUN composer install --optimize-autoloader --no-dev
 
-# Set permission (aman di Render)
+# Set permission
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Arahkan Apache ke folder public Laravel
+# Arahkan ke folder public
 WORKDIR /var/www/html/public
 
-# Expose port
 EXPOSE 80
+
 
