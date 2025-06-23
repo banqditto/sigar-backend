@@ -13,8 +13,8 @@ RUN a2enmod rewrite
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-#WORKDIR /var/www/html
+# Arahkan ke folder public
+WORKDIR /var/www/html/public
 
 # Copy semua file Laravel
 COPY . .
@@ -26,8 +26,9 @@ RUN composer install --optimize-autoloader --no-dev
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Arahkan ke folder public
-WORKDIR /var/www/html/public
+# Ubah DocumentRoot Apache ke /var/www/html/public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
 
 EXPOSE 80
 
